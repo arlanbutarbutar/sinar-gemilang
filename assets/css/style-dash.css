@@ -12775,8 +12775,8 @@ fieldset:disabled .swal2-modal .swal2-buttonswrapper .swal2-styled,
   margin-bottom: -1px;
   background: none;
   border: 1px solid transparent;
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
+  /* border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem; */
 }
 
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
@@ -28947,7 +28947,7 @@ div.tagsinput span.tag a {
   white-space: nowrap;
   padding: 10px 35px 10px 35px;
   color: #484848;
-  border-radius: 0px 20px 20px 0px;
+  /* border-radius: 0px 20px 20px 0px; */
   -webkit-transition-duration: 0.45s;
   -moz-transition-duration: 0.45s;
   -o-transition-duration: 0.45s;
@@ -29077,7 +29077,7 @@ div.tagsinput span.tag a {
 }
 
 .sidebar-dark .sidebar .nav .nav-item.nav-category {
-  color: #fff;
+  color: #474747;
   border-bottom: none;
 }
 
@@ -29092,8 +29092,8 @@ div.tagsinput span.tag a {
 }
 
 .sidebar .nav:not(.sub-menu) > .nav-item:hover > .nav-link, .sidebar .nav:not(.sub-menu) > .nav-item:hover[aria-expanded="true"] {
-  background: #fff;
-  color: #fff;
+  background: #474747;
+  color: #474747;
 }
 
 .sidebar .nav:not(.sub-menu) > .nav-item > .nav-link {
@@ -29102,7 +29102,7 @@ div.tagsinput span.tag a {
 
 .sidebar .nav:not(.sub-menu) > .nav-item > .nav-link[aria-expanded="true"] {
   border-radius: 8px 8px 0 0;
-  background: #fff;
+  background: #474747;
   color: #1F3BB3;
 }
 
@@ -29115,7 +29115,7 @@ div.tagsinput span.tag a {
   margin-top: 0;
   list-style: none;
   padding: 0.25rem 0 0 3.07rem;
-  background: #fff;
+  background: #474747;
   padding-bottom: 12px;
 }
 

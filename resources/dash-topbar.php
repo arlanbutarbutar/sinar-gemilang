@@ -18,7 +18,7 @@
       </div>
     </div>
   </div>
-  <div class="navbar-menu-wrapper d-flex align-items-top shadow">
+  <div class="navbar-menu-wrapper d-flex align-items-top shadow" style="background-image: url(../assets/images/bg-topbar.png);background-repeat: no-repeat;background-position: right;">
     <ul class="navbar-nav">
       <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
         <h1 class="welcome-text">Selamat datang, <span class="text-black fw-bold"><?= $_SESSION['data-user']['username'] ?></span></h1>
@@ -32,7 +32,7 @@
       </li>
     </ul>
     <ul class="navbar-nav ms-auto">
-      <?php if ($_SESSION['page-url'] != "./") { ?>
+      <?php if ($_SESSION['page-url'] != "./" && $_SESSION['page-url'] != "profile") { ?>
         <li class="nav-item">
           <form class="search-form" action="#">
             <i class="icon-search"></i>
@@ -43,10 +43,10 @@
       <li class="nav-item dropdown d-none d-lg-block user-dropdown">
         <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
           <img class="img-xs rounded-circle" src="../assets/images/user.png" alt="Profile image"> </a>
-        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+        <div class="dropdown-menu dropdown-menu-right navbar-dropdown rounded-0" aria-labelledby="UserDropdown" style="width: 250px;">
           <div class="dropdown-header text-center">
             <img class="img-md rounded-circle" src="../assets/images/user.png" style="width: 50px;" alt="Profile image">
-            <p class="mb-1 mt-3 font-weight-semibold"><?= $_SESSION['data-user']['username'] ?></p>
+            <p class="mb-1 mt-3 font-weight-semibold"><?= $_SESSION['data-user']['username'] ?><br><?= $_SESSION['data-user']['email'] ?></p>
           </div>
           <a style="cursor: pointer;" onclick="window.location.href='profile'" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> Profile</a>
           <a style="cursor: pointer;" onclick="window.location.href='../auth/keluar'" class="dropdown-item border-bottom-0"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Keluar</a>

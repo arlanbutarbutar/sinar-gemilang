@@ -48,6 +48,7 @@ $_SESSION['actual-link'] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                   <button type="submit" name="masuk" class="btn btn-block btn-lg font-weight-medium auth-form-btn text-white" style="background-color: #009688;">Masuk</button>
                 </div>
               </form>
+              <p class="mt-3 d-flex justify-content-center" style="font-size: 14px;">Belum punya akun? <a href="daftar" class="nav-link p-0 font-weight-bold" style="color: #009688;"> Daftar</a></p>
               <a href="../" class="nav-link mt-3 text-decoration-none" style="color: #009688;">Kembali ke Beranda</a>
             </div>
           </div>

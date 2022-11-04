@@ -45,8 +45,8 @@ $_SESSION['page-url'] = "profile";
                           <input type="text" name="alamat" value="<?= $row['alamat'] ?>" class="form-control" id="alamat" placeholder="Alamat" required>
                         </div>
                         <div class="mb-3">
-                          <label for="telpon" class="form-label">Telpon</label>
-                          <input type="number" name="telpon" value="<?= $row['telpon'] ?>" class="form-control" id="telpon" placeholder="Telpon" required>
+                          <label for="telp" class="form-label">Telpon</label>
+                          <input type="number" name="telp" value="<?= $row['telp'] ?>" class="form-control" id="telpon" placeholder="Telpon" required>
                         </div>
                         <button type="submit" name="ubah-profile" class="btn btn-primary">Simpan</button>
                       </form>

@@ -7,5 +7,5 @@
 <link rel="stylesheet" href="../assets/css/typicons.css">
 <link rel="stylesheet" href="../assets/css/simple-line-icons.css">
 <link rel="stylesheet" href="../assets/css/vendor.bundle.base.css">
-<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/style-auth.css">
 <script src="../assets/sweetalert/dist/sweetalert2.all.min.js"></script>
