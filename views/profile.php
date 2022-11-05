@@ -48,6 +48,10 @@ $_SESSION['page-url'] = "profile";
                           <label for="telp" class="form-label">Telpon</label>
                           <input type="number" name="telp" value="<?= $row['telp'] ?>" class="form-control" id="telpon" placeholder="Telpon" required>
                         </div>
+                        <div class="mb-3">
+                          <label for="norek" class="form-label">Rekening Bank</label>
+                          <input type="text" name="norek" value="<?= $row['norek'] ?>" class="form-control" id="norek" placeholder="No. Rekening" required>
+                        </div>
                         <button type="submit" name="ubah-profile" class="btn btn-primary">Simpan</button>
                       </form>
                     </div>
@@ -79,6 +83,11 @@ $_SESSION['page-url'] = "profile";
                               <th scope="row">Telpon</th>
                               <td>:</td>
                               <td class="w-75"><?= $row['telp'] ?></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Rekening Bank</th>
+                              <td>:</td>
+                              <td class="w-75"><?= $row['norek'] ?></td>
                             </tr>
                           </tbody>
                         </table>

@@ -1,8 +1,6 @@
 <div id="mySidepanel" class="sidepanel">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
   <a href="./">Beranda</a>
-  <a href="jadwal">Jadwal dan Rute Bus</a>
-  <a href="order">Pemesanan Tiket</a>
   <a href="auth/">Masuk</a>
 </div>
 <!-- header -->
@@ -13,7 +11,7 @@
       <div class="row">
         <div class="col-md-4 col-sm-4">
           <div class="logo">
-            <h1>Sinar Gemilang</h1>
+            <h1 class="font-weight-bold">Sinar Gemilang</h1>
           </div>
         </div>
         <div class="col-md-8 col-sm-8">

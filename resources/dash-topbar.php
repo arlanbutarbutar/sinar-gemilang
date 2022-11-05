@@ -32,7 +32,7 @@
       </li>
     </ul>
     <ul class="navbar-nav ms-auto">
-      <?php if ($_SESSION['page-url'] != "./" && $_SESSION['page-url'] != "profile") { ?>
+      <?php if ($_SESSION['page-url'] != "./" && $_SESSION['page-url'] != "profile" && $_SESSION['page-url'] != "rute" && $_SESSION['page-url'] != "perjalanan" && $_SESSION['page-url'] != "pemesanan") { ?>
         <li class="nav-item">
           <form class="search-form" action="#">
             <i class="icon-search"></i>

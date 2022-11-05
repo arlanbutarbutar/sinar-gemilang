@@ -48,12 +48,13 @@ $_SESSION['page-url'] = "jadwal";
                       </select>
                     </div>
                     <div class="mb-3">
-                      <label for="rute-dari" class="form-label">Rute dari</label>
-                      <input type="text" name="rute-dari" class="form-control" id="rute-dari" placeholder="Rute dari" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="rute-ke" class="form-label">Rute ke</label>
-                      <input type="text" name="rute-ke" class="form-control" id="rute-ke" placeholder="Rute ke" required>
+                      <label for="rute" class="form-label">Rute</label>
+                      <select class="form-select" name="id-rute" id="rute" aria-label="Default select example" required>
+                        <option selected value="">Pilih Rute</option>
+                        <?php foreach ($selectRute as $row_rute) : ?>
+                          <option value="<?= $row_rute['id_rute'] ?>"><?= $row_rute['rute_dari'] . " - " . $row_rute['rute_ke'] ?></option>
+                        <?php endforeach; ?>
+                      </select>
                     </div>
                     <div class="mb-3">
                       <label for="tgl-jalan" class="form-label">Tgl jalan</label>
@@ -153,12 +154,13 @@ $_SESSION['page-url'] = "jadwal";
                                               </select>
                                             </div>
                                             <div class="mb-3">
-                                              <label for="rute-dari" class="form-label">Rute dari</label>
-                                              <input type="text" name="rute-dari" value="<?= $row['rute_dari'] ?>" class="form-control" id="rute-dari" placeholder="Rute dari" required>
-                                            </div>
-                                            <div class="mb-3">
-                                              <label for="rute-ke" class="form-label">Rute ke</label>
-                                              <input type="text" name="rute-ke" value="<?= $row['rute_ke'] ?>" class="form-control" id="rute-ke" placeholder="Rute ke" required>
+                                              <label for="rute" class="form-label">Rute</label>
+                                              <select class="form-select" name="id-rute" id="rute" aria-label="Default select example" required>
+                                                <option selected value="">Pilih Rute</option>
+                                                <?php foreach ($selectRute as $row_rute) : ?>
+                                                  <option value="<?= $row_rute['id_rute'] ?>"><?= $row_rute['rute_dari'] . " - " . $row_rute['rute_ke'] ?></option>
+                                                <?php endforeach; ?>
+                                              </select>
                                             </div>
                                             <div class="mb-3">
                                               <label for="tgl-jalan" class="form-label">Tgl jalan</label>
