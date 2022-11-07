@@ -226,6 +226,32 @@ if (isset($_SESSION['data-user'])) {
         exit();
       }
     }
+
+    $countUser = mysqli_query($conn, "SELECT * FROM users WHERE id_user!='$idUser'");
+    $countUser = mysqli_num_rows($countUser);
+    $countBus = mysqli_query($conn, "SELECT * FROM bus");
+    $countBus = mysqli_num_rows($countBus);
+    $countJadwal = mysqli_query($conn, "SELECT * FROM jadwal");
+    $countJadwal = mysqli_num_rows($countJadwal);
+    $countPemesanan = mysqli_query($conn, "SELECT * FROM pemesanan");
+    $countPemesanan = mysqli_num_rows($countPemesanan);
+
+    $datatable_pemesanan = mysqli_query($conn, "SELECT * FROM pemesanan
+      JOIN users ON pemesanan.id_user=users.id_user
+      JOIN jadwal ON pemesanan.id_jadwal=jadwal.id_jadwal
+      JOIN rute ON jadwal.id_rute=rute.id_rute
+      JOIN bus ON jadwal.id_bus=bus.id_bus
+      ORDER BY pemesanan.id_pesan DESC
+    ");
+
+    if (isset($_POST['tolak-bayar'])) {
+      if (tolak_bayar($_POST) > 0) {
+        $_SESSION['message-success'] = "Pembayaran telah ditolak.";
+        $_SESSION['time-message'] = time();
+        header("Location: ./");
+        exit();
+      }
+    }
   }
 
   if ($_SESSION['data-user']['role'] == 3) {
@@ -284,7 +310,7 @@ if (isset($_SESSION['data-user'])) {
       }
     }
 
-    $owner=mysqli_query($conn, "SELECT norek FROM users WHERE id_role='2'");
+    $owner = mysqli_query($conn, "SELECT norek FROM users WHERE id_role='2'");
     if (isset($_POST['save-bayar'])) {
       if (save_bayar($_POST) > 0) {
         $_SESSION['message-success'] = "Pembayaran berhasil di konfirmasi. Silakan menunggu beberapa saat untuk pengecekan oleh admin Sinar Gemilang";

@@ -265,6 +265,13 @@ if (isset($_SESSION['data-user'])) {
       mysqli_query($conn, "DELETE FROM jadwal WHERE id_jadwal='$id_jadwal'");
       return mysqli_affected_rows($conn);
     }
+    function tolak_bayar($data)
+    {
+      global $conn;
+      $id_pesan=htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['id-pesan']))));
+      mysqli_query($conn, "UPDATE pemesanan SET status_bayar='1' WHERE id_pesan='$id_pesan'");
+      return mysqli_affected_rows($conn);
+    }
   }
   if ($_SESSION['data-user']['role'] == 3) {
     function checkout($data)

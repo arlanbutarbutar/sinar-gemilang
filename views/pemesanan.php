@@ -377,6 +377,9 @@ $_SESSION['page-url'] = "pemesanan";
                                       } ?>
                                       <p>Jika anda sudah melakukan pembayaran, anda tidak dapat lagi melakukan proses pembatalan perjalanan anda.</p>
                                       <hr>
+                                      <?php if (!empty($row['bukti_bayar'])) { ?>
+                                        <p class="text-danger">Maaf, pembayaran anda ditolak, silakan masukan bukti bayar anda dengan benar.</p>
+                                      <?php } ?>
                                       <div class="mb-3 text-center">
                                         <label for="formFile" class="form-label">Upload bukti bayar</label>
                                         <input class="form-control" name="image" type="file" id="formFile" required>
