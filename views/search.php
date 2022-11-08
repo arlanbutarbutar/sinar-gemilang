@@ -190,7 +190,7 @@ if ($_SESSION['page-url'] == "bus") {
                   </div>
                   <div class="modal-footer justify-content-center border-top-0">
                     <input type="hidden" name="id-bus" value="<?= $row['id_bus'] ?>">
-                    <input type="hidden" name="namaOld" value="<?= $row['nama_bus'] ?>">
+                    <input type="hidden" name="no-platOld" value="<?= $row['no_plat'] ?>">
                     <input type="hidden" name="img-bus" value="<?= $row['img_bus'] ?>">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button type="submit" name="ubah-bus" class="btn btn-warning">Ubah</button>

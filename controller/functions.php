@@ -120,13 +120,13 @@ if (isset($_SESSION['data-user'])) {
     {
       global $conn;
       $nama = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['nama']))));
-      $checkNama = mysqli_query($conn, "SELECT * FROM bus WHERE nama_bus='$nama'");
-      if (mysqli_num_rows($checkNama) > 0) {
-        $_SESSION['message-danger'] = "Maaf, nama bus sudah ada!";
+      $no_plat = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['no-plat']))));
+      $checkPlat = mysqli_query($conn, "SELECT * FROM bus WHERE no_plat='$no_plat'");
+      if (mysqli_num_rows($checkPlat) > 0) {
+        $_SESSION['message-danger'] = "Maaf, bus dengan nomor plat " . $no_plat . " sudah ada!";
         $_SESSION['time-message'] = time();
         return false;
       }
-      $no_plat = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['no-plat']))));
       $jumlah_kursi = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['jumlah-kursi']))));
       $pabrikan = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['pabrikan']))));
       $image = imageBus();
@@ -141,16 +141,16 @@ if (isset($_SESSION['data-user'])) {
       global $conn, $time;
       $id_bus = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['id-bus']))));
       $nama = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['nama']))));
-      $namaOld = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['namaOld']))));
-      if ($nama != $namaOld) {
-        $checkNama = mysqli_query($conn, "SELECT * FROM bus WHERE nama_bus='$nama'");
-        if (mysqli_num_rows($checkNama) > 0) {
-          $_SESSION['message-danger'] = "Maaf, nama bus sudah ada!";
+      $no_plat = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['no-plat']))));
+      $no_platOld = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['no-platOld']))));
+      if ($no_plat != $no_platOld) {
+        $checkPlat = mysqli_query($conn, "SELECT * FROM bus WHERE no_plat='$no_plat'");
+        if (mysqli_num_rows($checkPlat) > 0) {
+          $_SESSION['message-danger'] = "Maaf, bus dengan nomor plat " . $no_plat . " sudah ada!";
           $_SESSION['time-message'] = time();
           return false;
         }
       }
-      $no_plat = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['no-plat']))));
       $jumlah_kursi = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['jumlah-kursi']))));
       $pabrikan = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['pabrikan']))));
       $img_bus = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['img-bus']))));
@@ -268,7 +268,7 @@ if (isset($_SESSION['data-user'])) {
     function tolak_bayar($data)
     {
       global $conn;
-      $id_pesan=htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['id-pesan']))));
+      $id_pesan = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['id-pesan']))));
       mysqli_query($conn, "UPDATE pemesanan SET status_bayar='1' WHERE id_pesan='$id_pesan'");
       return mysqli_affected_rows($conn);
     }

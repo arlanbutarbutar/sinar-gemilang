@@ -43,7 +43,7 @@ $_SESSION['page-url'] = "jadwal";
                       <select class="form-select" name="id-bus" id="id-bus" aria-label="Default select example" required>
                         <option selected value="">Pilih Bus</option>
                         <?php foreach ($selectBus as $row_selbus) : ?>
-                          <option value="<?= $row_selbus['id_bus'] ?>"><?= $row_selbus['nama_bus'] ?></option>
+                          <option value="<?= $row_selbus['id_bus'] ?>"><?= $row_selbus['nama_bus'] . " - " . $row_selbus['no_plat'] ?></option>
                         <?php endforeach; ?>
                       </select>
                     </div>
@@ -149,7 +149,7 @@ $_SESSION['page-url'] = "jadwal";
                                               <select class="form-select" name="id-bus" id="id-bus" aria-label="Default select example" required>
                                                 <option selected value="">Pilih Bus</option>
                                                 <?php foreach ($selectBus as $row_selbus) : ?>
-                                                  <option value="<?= $row_selbus['id_bus'] ?>"><?= $row_selbus['nama_bus'] ?></option>
+                                                  <option value="<?= $row_selbus['id_bus'] ?>"><?= $row_selbus['nama_bus'] . " - " . $row_selbus['no_plat'] ?></option>
                                                 <?php endforeach; ?>
                                               </select>
                                             </div>
