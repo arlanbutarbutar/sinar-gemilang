@@ -148,6 +148,7 @@ $_SESSION['page-url'] = "pemesanan";
     }
 
     .number-tiket {
+      margin-top: -10px;
       text-align: center;
       text-transform: uppercase;
     }
@@ -161,6 +162,17 @@ $_SESSION['page-url'] = "pemesanan";
     .number-tiket span {
       display: block;
       color: #a2aeae;
+      font-size: 12px;
+    }
+
+    .barcode {
+      max-width: 100px;
+      text-align: center;
+    }
+
+    .barcode img{
+      margin-top: 10px;
+      width: 70px;
     }
 
     @media print {
@@ -232,10 +244,10 @@ $_SESSION['page-url'] = "pemesanan";
                                 </div>
                                 <div class="col-lg-3 m-auto">
                                   <form action="" method="POST" class="mt-3">
-                                    <h4 class="font-weight-bold" style="color: #009688;">Rp. <?= number_format($row_co['biaya']) ?><small>/Org</small></h3>
-                                      <input type="hidden" name="id-jadwal" value="<?= $row_co['id_jadwal'] ?>">
-                                      <input type="hidden" name="id-bus" value="<?= $row_co['id_bus'] ?>">
-                                      <button type="submit" name="checkout" class="btn shadow text-white btn-lg" style="background-color: #009688;width: 100%;">Pesan</button>
+                                    <h4 class="font-weight-bold" style="color: #009688;">Rp. <?= number_format($row_co['biaya']) ?><small>/Org</small></h4>
+                                    <input type="hidden" name="id-jadwal" value="<?= $row_co['id_jadwal'] ?>">
+                                    <input type="hidden" name="id-bus" value="<?= $row_co['id_bus'] ?>">
+                                    <button type="submit" name="checkout" class="btn shadow text-white btn-lg" style="background-color: #009688;width: 100%;">Pesan</button>
                                   </form>
                                 </div>
                               </div>
@@ -345,7 +357,10 @@ $_SESSION['page-url'] = "pemesanan";
                                             <div class="eye-tiket"></div>
                                             <div class="number-tiket">
                                               <h3><?= $row['kursi'] ?></h3>
-                                              <span>Kursi</span>
+                                              <span>No. Kursi</span>
+                                            </div>
+                                            <div class="barcode">
+                                              <img src="../assets/images/qrcode/<?= $row['id_pesan'] . ".jpg" ?>" alt="QR">
                                             </div>
                                           </div>
                                         </div>
@@ -420,11 +435,13 @@ $_SESSION['page-url'] = "pemesanan";
                                     <div class="modal-body text-center">
                                       <p>Anda yakin ingin membatalkan perjalanan?</p>
                                     </div>
-                                    <div class="modal-footer border-top-0 justify-content-center">
-                                      <input type="hidden" name="id-pesan" value="<?= $row['id_pesan'] ?>">
-                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                      <button type="submit" name="batal-jalan" class="btn btn-danger text-white">Batalkan</button>
-                                    </div>
+                                    <form action="" method="post">
+                                      <div class="modal-footer border-top-0 justify-content-center">
+                                        <input type="hidden" name="id-pesan" value="<?= $row['id_pesan'] ?>">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" name="batal-jalan" class="btn btn-danger text-white">Batalkan</button>
+                                      </div>
+                                    </form>
                                   </div>
                                 </div>
                               </div>
