@@ -252,6 +252,14 @@ if (isset($_SESSION['data-user'])) {
         exit();
       }
     }
+    if (isset($_POST['terima-bayar'])) {
+      if (terima_bayar($_POST) > 0) {
+        $_SESSION['message-success'] = "Pembayaran telah diterima.";
+        $_SESSION['time-message'] = time();
+        header("Location: ./");
+        exit();
+      }
+    }
   }
 
   if ($_SESSION['data-user']['role'] == 3) {

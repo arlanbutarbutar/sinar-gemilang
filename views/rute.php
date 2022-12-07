@@ -76,7 +76,7 @@ $_SESSION['page-url'] = "rute";
                                 <td><?= $row['rute_ke'] ?></td>
                                 <td>
                                   <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ubah<?= $row['id_rute'] ?>">
-                                    <i class="mdi mdi-table-edit"></i>
+                                    <i class="mdi mdi-table-edit"></i> Ubah
                                   </button>
                                   <div class="modal fade" id="ubah<?= $row['id_rute'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -110,7 +110,7 @@ $_SESSION['page-url'] = "rute";
                                 </td>
                                 <td>
                                   <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapus<?= $row['id_rute'] ?>">
-                                    <i class="mdi mdi-delete"></i>
+                                    <i class="mdi mdi-delete"></i> Hapus
                                   </button>
                                   <div class="modal fade" id="hapus<?= $row['id_rute'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">

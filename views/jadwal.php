@@ -133,7 +133,7 @@ $_SESSION['page-url'] = "jadwal";
                                 </td>
                                 <td>
                                   <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ubah<?= $row['id_jadwal'] ?>">
-                                    <i class="mdi mdi-table-edit"></i>
+                                    <i class="mdi mdi-table-edit"></i> Ubah
                                   </button>
                                   <div class="modal fade" id="ubah<?= $row['id_jadwal'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -189,7 +189,7 @@ $_SESSION['page-url'] = "jadwal";
                                 </td>
                                 <td>
                                   <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapus<?= $row['id_jadwal'] ?>">
-                                    <i class="mdi mdi-delete"></i>
+                                    <i class="mdi mdi-delete"></i> Hapus
                                   </button>
                                   <div class="modal fade" id="hapus<?= $row['id_jadwal'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">

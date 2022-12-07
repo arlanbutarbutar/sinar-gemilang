@@ -138,6 +138,7 @@
   }
 
   .number-tiket {
+    margin-top: -10px;
     text-align: center;
     text-transform: uppercase;
   }
@@ -151,6 +152,17 @@
   .number-tiket span {
     display: block;
     color: #a2aeae;
+    font-size: 12px;
+  }
+
+  .barcode {
+    max-width: 100px;
+    text-align: center;
+  }
+
+  .barcode img {
+    margin-top: 10px;
+    width: 70px;
   }
 
   @media print {
@@ -272,8 +284,8 @@
                           <?php if ($row['status_bayar'] == 1) { ?>
                             <span class="badge bg-warning text-dark"><i class="mdi mdi-clock-fast"></i> Pembayaran diproses</span>
                           <?php } else if ($row['status_bayar'] == 2) { ?>
-                            <span class="badge bg-success text-white"><i class="mdi mdi-check-all"></i> Pembayaran berhasil</span><br>
-                            <a href="#" class="btn btn-success rounded-0 shadow text-white mt-2" data-bs-toggle="modal" data-bs-target="#pembayaran-berhasil<?= $row['id_pesan'] ?>">Cek TF</a>
+                            <span class="badge bg-warning text-dark"><i class="mdi mdi-clock-fast"></i> Cek Pembayaran</span><br>
+                            <a href="#" class="btn btn-success rounded-0 shadow text-white mt-2" data-bs-toggle="modal" data-bs-target="#pembayaran-berhasil<?= $row['id_pesan'] ?>">Cek Bayar</a>
                             <div class="modal fade" id="pembayaran-berhasil<?= $row['id_pesan'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog modal-lg">
                                 <div class="modal-content modal-lg">
@@ -289,11 +301,14 @@
                                       <input type="hidden" name="id-pesan" value="<?= $row['id_pesan'] ?>">
                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                       <button type="submit" name="tolak-bayar" class="btn btn-warning text-white">Tolak</button>
+                                      <button type="submit" name="terima-bayar" class="btn btn-success text-white">Terima</button>
                                     </div>
                                   </form>
                                 </div>
                               </div>
                             </div>
+                          <?php } else if ($row['status_bayar'] == 3) { ?>
+                            <span class="badge bg-success text-white"><i class="mdi mdi-check-all"></i> Pembayaran berhasil</span><br>
                           <?php } ?>
                         </td>
                       </tr>
@@ -355,13 +370,19 @@
                                 <i class="mdi mdi-clock-fast"></i> Pembayaran diproses
                               </button>
                             <?php } else if ($row['status_bayar'] == 2) { ?>
-                              <button type="button" class="btn btn-success rounded-0 shadow text-white" data-bs-toggle="modal" data-bs-target="#pembayaran-berhasil<?= $row['id_pesan'] ?>">
+                              <button type="button" class="btn btn-warning rounded-0 shadow text-white" data-bs-toggle="modal" data-bs-target="#pembayaran-status<?= $row['id_pesan'] ?>">
+                                <i class="mdi mdi-clock-fast"></i> Pembayaran pending
+                              </button>
+                            <?php } else if ($row['status_bayar'] == 3) { ?>
+                              <button type="button" class="btn btn-success rounded-0 shadow text-white" data-bs-toggle="modal" data-bs-target="#pembayaran-status<?= $row['id_pesan'] ?>">
                                 <i class="mdi mdi-check-all"></i> Pembayaran berhasil
                               </button>
+                            <?php }
+                            if ($row['status_bayar'] <= 2) { ?>
+                              <button type="button" class="btn btn-danger rounded-0 shadow text-white" data-bs-toggle="modal" data-bs-target="#batal<?= $row['id_pesan'] ?>">
+                                <i class="mdi mdi-close"></i> Pembatalan
+                              </button>
                             <?php } ?>
-                            <button type="button" class="btn btn-danger rounded-0 shadow text-white" data-bs-toggle="modal" data-bs-target="#batal<?= $row['id_pesan'] ?>">
-                              <i class="mdi mdi-close"></i> Pembatalan
-                            </button>
                           </div>
                         </div>
                       </div>
@@ -375,11 +396,11 @@
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <form action="" method="post">
-                              <?php if ($row['status_bayar'] == 1) { ?>
+                              <?php if ($row['status_bayar'] <= 2) { ?>
                                 <div class="modal-body text-center">
                                   <p>Anda belum menyelesaikan proses pembayaran</p>
                                 </div>
-                              <?php } else if ($row['status_bayar'] == 2) { ?>
+                              <?php } else if ($row['status_bayar'] == 3) { ?>
                                 <div class="modal-body text-center" style="overflow: auto;" id="print">
                                   <div class="cardWrap" style="height: 50px;margin-top: -100px;">
                                     <div class="card-tiket cardLeft" style="height: 220px;">
@@ -410,7 +431,10 @@
                                       <div class="eye-tiket"></div>
                                       <div class="number-tiket">
                                         <h3><?= $row['kursi'] ?></h3>
-                                        <span>Kursi</span>
+                                        <span>No. Kursi</span>
+                                      </div>
+                                      <div class="barcode">
+                                        <img src="../assets/images/qrcode/<?= $row['id_pesan'] . ".jpg" ?>" alt="QR">
                                       </div>
                                     </div>
                                   </div>
@@ -460,11 +484,15 @@
                         </div>
                       </div>
 
-                      <div class="modal fade" id="pembayaran-berhasil<?= $row['id_pesan'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="pembayaran-status<?= $row['id_pesan'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                           <div class="modal-content modal-lg">
                             <div class="modal-header border-bottom-0">
-                              <h5 class="modal-title" id="exampleModalLabel">Pembayaran berhasil</h5>
+                              <h5 class="modal-title" id="exampleModalLabel">Pembayaran <?php if ($row['status_bayar'] == 2) {
+                                                                                          echo "menunggu pengecekan Administrasi";
+                                                                                        } else if ($row['status_bayar'] == 3) {
+                                                                                          echo "berhasil";
+                                                                                        } ?></h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body text-center">
@@ -474,7 +502,7 @@
                         </div>
                       </div>
 
-                      <?php if ($row['status_bayar'] == 1) { ?>
+                      <?php if ($row['status_bayar'] <= 2) { ?>
                         <div class="modal fade" id="batal<?= $row['id_pesan'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog">
                             <div class="modal-content">

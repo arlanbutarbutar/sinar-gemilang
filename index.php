@@ -123,7 +123,7 @@ $_SESSION['actual-link'] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
   </div>
   <!-- end service section -->
   <!-- vehicles section -->
-  <section id="vehicles" class="vehicles">
+  <section id="vehicles" class="vehicles" style="margin-bottom: -200px;">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
