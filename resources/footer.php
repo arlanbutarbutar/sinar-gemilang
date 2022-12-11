@@ -2,7 +2,7 @@
 <div class="footer">
   <div class="copyright">
     <div class="col-md-12">
-      <small class="text-white">Copyright © <?= date('Y') ?> <a style="cursor: pointer;" onclick="window.open('https://netmedia-framecode.com', '_blank')">Netmedia Framecode</a> . All rights reserved. Powered by Mario Adelino Bere Taek</small>
+      <small class="text-white">Copyright © <?= date('Y') ?> <a style="cursor: pointer;" onclick="window.open('https://netmedia-framecode.com', '_blank')">Netmedia Framecode</a> . All rights reserved. Powered by Sinar Gemilang</small>
     </div>
   </div>
 </div>

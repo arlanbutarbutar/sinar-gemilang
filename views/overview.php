@@ -245,6 +245,7 @@
                     <th>Bus</th>
                     <th>Jadwal</th>
                     <th>Status</th>
+                    <th>Detail</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -311,6 +312,45 @@
                             <span class="badge bg-success text-white"><i class="mdi mdi-check-all"></i> Pembayaran berhasil</span><br>
                           <?php } ?>
                         </td>
+                        <td class="text-center">
+                          <button type="button" class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#data-perjalanan<?= $row['id_pesan'] ?>">
+                            Pelanggan
+                          </button>
+                        </td>
+                        <div class="modal fade" id="data-perjalanan<?= $row['id_pesan'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Data Perjalanan <?= $row['username'] ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <?php $id_pesan = $row['id_pesan'];
+                                $perjalanan = mysqli_query($conn, "SELECT * FROM pemesanan JOIN users ON pemesanan.id_user=users.id_user JOIN jadwal ON pemesanan.id_jadwal=jadwal.id_jadwal JOIN rute ON jadwal.id_rute=rute.id_rute JOIN bus ON jadwal.id_bus=bus.id_bus WHERE pemesanan.id_pesan='$id_pesan'");
+                                if (mysqli_num_rows($perjalanan) > 0) {
+                                  while ($row = mysqli_fetch_assoc($perjalanan)) { ?>
+                                    <span><?php
+                                          $tgl_jalan = date_create($row['tgl_jalan']);
+                                          $tgl_jalan = date_format($tgl_jalan, "d M Y");
+                                          $tgl_pesan = date_create($row['tgl_pesan']);
+                                          $tgl_pesan = date_format($tgl_pesan, "d M Y - h.i.s");
+                                          $tgl_bayar = date_create($row['tgl_bayar']);
+                                          $tgl_bayar = date_format($tgl_bayar, "d M Y - h.i.s");
+                                          if ($row['status_bayar'] == 1) {
+                                            $status = "Pembayaran diproses";
+                                          } else if ($row['status_bayar'] == 2) {
+                                            $status = "Pembayaran pending";
+                                          } else if ($row['status_bayar'] == 3) {
+                                            $status = "Pembayaran berhasil";
+                                          }
+                                          $data_qr = "<strong>" . $row['username'] . " (" . $row['email'] . "/" . $row['telp'] . ")</strong><br> No. Kursi <strong>" . $row['kursi'] . "</strong><br>Bus <strong>" . $row['nama_bus'] . " (" . $row['no_plat'] . ")</strong> <br>Tujuan <strong>" . $row['rute_dari'] . " - " . $row['rute_ke'] . "</strong><br>Jadwal <strong>" . $tgl_jalan . "</strong><br><hr>Tanggal Pemesanan <strong>" . $tgl_pesan . "</strong><br>Tanggal Bayar <strong>" . $tgl_bayar . "</strong><br>Status <strong>" . $status . "</strong><br>Total Biaya <strong>Rp." . number_format($row['biaya']) . "</strong>";
+                                          echo $data_qr; ?></span>
+                                <?php }
+                                } ?>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </tr>
                   <?php }
                   } ?>

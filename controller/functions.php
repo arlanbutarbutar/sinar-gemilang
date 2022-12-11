@@ -284,7 +284,7 @@ if (isset($_SESSION['data-user'])) {
     function qrcode($id_pesan)
     {
       require_once('../assets/phpqrcode/qrlib.php');
-      $qrvalue = "http://127.0.0.1:1010/apps/sinar-gemilang/qr?perjalanan=".$id_pesan;
+      $qrvalue = "http://127.0.0.1:1010/apps/sinar-gemilang/qr?perjalanan=" . $id_pesan;
       $tempDir = "../assets/images/qrcode/";
       $codeContents = $qrvalue;
       $fileName = $id_pesan . ".jpg";
@@ -354,13 +354,14 @@ if (isset($_SESSION['data-user'])) {
     }
     function save_bayar($data)
     {
-      global $conn;
+      global $conn, $time;
       $id_pesan = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['id-pesan']))));
       $image = imageBayar();
       if (!$image) {
         return false;
       }
-      mysqli_query($conn, "UPDATE pemesanan SET status_bayar='2', bukti_bayar='$image' WHERE id_pesan='$id_pesan'");
+      $tgl_bayar = date("Y-m-d " . $time);
+      mysqli_query($conn, "UPDATE pemesanan SET status_bayar='2', bukti_bayar='$image', tgl_bayar='$tgl_bayar' WHERE id_pesan='$id_pesan'");
       return mysqli_affected_rows($conn);
     }
     function batal_jalan($data)

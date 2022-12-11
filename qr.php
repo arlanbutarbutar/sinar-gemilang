@@ -41,9 +41,21 @@ if (!isset($_GET['perjalanan'])) {
             if (mysqli_num_rows($perjalanan) > 0) {
               while ($row = mysqli_fetch_assoc($perjalanan)) { ?>
                 <h1>Data Perjalanan</h1>
-                <span><?php $tgl_jalan = date_create($row['tgl_jalan']);
-                      $tgl_jalan = date_format($tgl_jalan, "l, d M Y");
-                      $data_qr = $row['username'] . " (" . $row['email'] . "/" . $row['telp'] . ") <br> No. Kursi " . $row['kursi'] . " <br>Bus " . $row['nama_bus'] . " (" . $row['no_plat'] . ") <br>Tujuan " . $row['rute_dari'] . " - " . $row['rute_ke'] . " <br>Jadwal " . $tgl_jalan;
+                <span><?php
+                      $tgl_jalan = date_create($row['tgl_jalan']);
+                      $tgl_jalan = date_format($tgl_jalan, "d M Y");
+                      $tgl_pesan = date_create($row['tgl_pesan']);
+                      $tgl_pesan = date_format($tgl_pesan, "d M Y - h.i.s");
+                      $tgl_bayar = date_create($row['tgl_bayar']);
+                      $tgl_bayar = date_format($tgl_bayar, "d M Y - h.i.s");
+                      if ($row['status_bayar'] == 1) {
+                        $status = "Pembayaran diproses";
+                      } else if ($row['status_bayar'] == 2) {
+                        $status = "Pembayaran pending";
+                      } else if ($row['status_bayar'] == 3) {
+                        $status = "Pembayaran berhasil";
+                      }
+                      $data_qr = "<strong>" . $row['username'] . " (" . $row['email'] . "/" . $row['telp'] . ")</strong><br> No. Kursi <strong>" . $row['kursi'] . "</strong><br>Bus <strong>" . $row['nama_bus'] . " (" . $row['no_plat'] . ")</strong> <br>Tujuan <strong>" . $row['rute_dari'] . " - " . $row['rute_ke'] . "</strong><br>Jadwal <strong>" . $tgl_jalan . "</strong><br><hr>Tanggal Pemesanan <strong>" . $tgl_pesan . "</strong><br>Tanggal Bayar <strong>" . $tgl_bayar . "</strong><br>Status <strong>" . $status . "</strong><br>Total Biaya <strong>Rp." . number_format($row['biaya']) . "</strong>";
                       echo $data_qr; ?></span>
           <?php }
             }
