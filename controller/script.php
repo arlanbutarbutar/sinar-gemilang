@@ -29,8 +29,8 @@ if (isset($_SESSION['time-message'])) {
 
 $baseURL = "http://$_SERVER[HTTP_HOST]/apps/sinar-gemilang/";
 
-$selectFrom = mysqli_query($conn, "SELECT * FROM rute");
-$selectTo = mysqli_query($conn, "SELECT * FROM rute");
+$selectFrom = mysqli_query($conn, "SELECT DISTINCT rute_dari FROM rute");
+$selectTo = mysqli_query($conn, "SELECT DISTINCT rute_ke FROM rute");
 if (isset($_POST['cari-perjalanan'])) {
   $from = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $_POST['from']))));
   $to = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $_POST['to']))));
@@ -285,6 +285,12 @@ if (isset($_SESSION['data-user'])) {
           exit();
         }
       }
+      if (isset($_POST['checkout-batal'])) {
+        unset($_SESSION['pesan-perjalanan']);
+        unset($_SESSION['data-perjalanan']);
+        header("Location: pemesanan");
+        exit();
+      }
     }
 
     if (isset($_POST['cari-jadwal'])) {
@@ -302,6 +308,23 @@ if (isset($_SESSION['data-user'])) {
           'tgl' => $tgl,
         ];
         header("Location: perjalanan#tour");
+        exit();
+      }
+    }
+    $keranjang = mysqli_query($conn, "SELECT * FROM keranjang JOIN  jadwal ON keranjang.id_jadwal=jadwal.id_jadwal JOIN rute ON jadwal.id_rute=rute.id_rute JOIN bus ON jadwal.id_bus=bus.id_bus WHERE keranjang.id_user='$idUser'");
+    if (isset($_POST['list-jadwal'])) {
+      if (list_jadwal($_POST) > 0) {
+        $_SESSION['message-success'] = "Pesanan anda berhasil dimasukan ke list pemesanan.";
+        $_SESSION['time-message'] = time();
+        header("Location: perjalanan#tour");
+        exit();
+      }
+    }
+    if (isset($_POST['checkout-list'])) {
+      if (checkout_list($_POST) > 0) {
+        $_SESSION['message-success'] = "Anda berhasil melakukan pemesanan tiket bus Sinar Gemilang. Silakan lakukan pembayaran anda untuk mendapatkan tiker bus.";
+        $_SESSION['time-message'] = time();
+        header("Location: pemesanan");
         exit();
       }
     }

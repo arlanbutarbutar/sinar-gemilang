@@ -216,6 +216,60 @@ $_SESSION['page-url'] = "pemesanan";
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
+                <div class="card rounded-0 shadow border-0 mb-3" style="max-width: 100%;">
+                  <?php if (!isset($_SESSION['pesan-perjalanan'])) {
+                    $total = 0;
+                    if (mysqli_num_rows($keranjang) > 0) {
+                      while ($row_kj = mysqli_fetch_assoc($keranjang)) { ?>
+                        <form action="" method="post">
+                          <div class="row g-0">
+                            <div class="col-md-4">
+                              <img src="../assets/images/bus/<?= $row_kj['img_bus'] ?>" class="img-fluid rounded-0" alt="<?= $row_kj['nama_bus'] ?>">
+                            </div>
+                            <div class="col-md-8">
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-lg-9">
+                                    <h1 class="card-title">Bus <?= $row_kj['nama_bus'] ?></h1>
+                                    <div class="row">
+                                      <div class="col-lg-5">
+                                        <p class="card-text">Waktu berkangkat <br>jam <?= $row_kj['waktu_jalan'] ?></p>
+                                      </div>
+                                      <div class="col-lg-6">
+                                        <div class="d-flex justify-content-between">
+                                          <p class="card-text">Dari: <br><?= $row_kj['rute_dari'] ?></p>
+                                          <i class="bi bi-arrow-right font-weight-bold" style="font-size: 25px;color: #009688;"></i>
+                                          <p class="card-text">Ke: <br><?= $row_kj['rute_ke'] ?></p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-3 m-auto mt-3">
+                                    <h4 class="font-weight-bold" style="color: #009688;">Rp. <?= number_format($row_kj['biaya']) ?><small>/Org</small></h4>
+                                    <input type="hidden" name="id-jadwal[]" value="<?= $row_kj['id_jadwal'] ?>">
+                                    <input type="hidden" name="id-bus[]" value="<?= $row_kj['id_bus'] ?>">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <?php $total += $row_kj['biaya'];
+                      } ?>
+                        <hr>
+                        <div class="row">
+                          <div class="col-lg-7"></div>
+                          <div class="col-lg-3 m-auto">
+                            <h6>Total Pembayaran: Rp. <?= number_format($total) ?></h6>
+                          </div>
+                          <div class="col-lg-2">
+                            <button type="submit" name="checkout-list" class="btn shadow text-white btn-lg" style="background-color: #009688;width: 100px;">Pesan Sekarang</button>
+                          </div>
+                        </div>
+                        </form>
+                    <?php
+                    }
+                  } ?>
+                </div>
                 <?php if (isset($_SESSION['pesan-perjalanan'])) {
                   if (mysqli_num_rows($checkout) > 0) {
                     while ($row_co = mysqli_fetch_assoc($checkout)) { ?>
@@ -248,6 +302,7 @@ $_SESSION['page-url'] = "pemesanan";
                                     <input type="hidden" name="id-jadwal" value="<?= $row_co['id_jadwal'] ?>">
                                     <input type="hidden" name="id-bus" value="<?= $row_co['id_bus'] ?>">
                                     <button type="submit" name="checkout" class="btn shadow text-white btn-lg" style="background-color: #009688;width: 100%;">Pesan</button>
+                                    <button type="submit" name="checkout-batal" class="btn btn-danger shadow text-white btn-lg" style="width: 100%;">Batal</button>
                                   </form>
                                 </div>
                               </div>

@@ -75,7 +75,8 @@ $_SESSION['page-url'] = "perjalanan";
                 </div>
               </div>
             </div>
-          </div><hr>
+          </div>
+          <hr>
           <?php if (isset($_SESSION['data-perjalanan'])) { ?>
             <div class="row mt-3" id="tour">
               <div class="col-md-12">
@@ -98,7 +99,7 @@ $_SESSION['page-url'] = "perjalanan";
                         <div class="col-md-8">
                           <div class="card-body">
                             <div class="row">
-                              <div class="col-lg-9">
+                              <div class="col-lg-8">
                                 <h1 class="card-title">Bus <?= $row_jadwal['nama_bus'] ?></h1>
                                 <div class="row">
                                   <div class="col-lg-5">
@@ -113,11 +114,14 @@ $_SESSION['page-url'] = "perjalanan";
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-lg-3 m-auto">
-                                <form action="" method="POST" class="mt-3">
-                                  <h4 class="font-weight-bold" style="color: #009688;">Rp. <?= number_format($row_jadwal['biaya']) ?><small>/Org</small></h4>
+                              <div class="col-lg-4 m-auto">
+                                <h4 class="font-weight-bold" style="color: #009688;">Rp. <?= number_format($row_jadwal['biaya']) ?><small>/Org</small></h4>
+                                <form action="" method="post">
                                   <input type="hidden" name="id-jadwal" value="<?= $row_jadwal['id_jadwal'] ?>">
-                                  <button type="submit" name="pesan-jadwal" class="btn shadow text-white" style="background-color: #009688;width: 100%;">Pilih</button>
+                                  <div class="d-flex flex-nowrap">
+                                    <button type="submit" name="list-jadwal" class="btn btn-primary btn-sm rounded-0" data-bs-dismiss="modal">Masukan List</button>
+                                    <button type="submit" name="pesan-jadwal" class="btn btn-success btn-sm rounded-0">Pesan Sekarang</button>
+                                  </div>
                                 </form>
                               </div>
                             </div>

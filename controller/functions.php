@@ -323,6 +323,44 @@ if (isset($_SESSION['data-user'])) {
       mysqli_query($conn, "INSERT INTO pemesanan(id_pesan,id_user,id_jadwal,kursi) VALUES('$id_pesan','$idUser','$id_jadwal','$seat')");
       return mysqli_affected_rows($conn);
     }
+    function checkout_list($data)
+    {
+      global $conn, $idUser;
+      $checkID = mysqli_query($conn, "SELECT * FROM pemesanan ORDER BY id_pesan DESC LIMIT 1");
+      if (mysqli_num_rows($checkID) > 0) {
+        $row = mysqli_fetch_assoc($checkID);
+        $id_pesan = $row['id_pesan'] + 1;
+      } else {
+        $id_pesan = 1;
+      }
+
+      $id_jadwal = $data['id-jadwal'];
+      $id_bus = $data['id-bus'];
+      $count = count($id_bus);
+
+      for ($i = 0; $i < $count; $i++) {
+        $takeJadwal = mysqli_query($conn, "SELECT * FROM jadwal JOIN rute ON jadwal.id_rute=rute.id_rute WHERE jadwal.id_jadwal='$id_jadwal[$i]'");
+        $row_jadwal = mysqli_fetch_assoc($takeJadwal);
+        $checkJadwal = mysqli_query($conn, "SELECT * FROM pemesanan WHERE id_jadwal='$id_jadwal[$i]'");
+        $kursi = mysqli_num_rows($checkJadwal);
+        $checkKursi = mysqli_query($conn, "SELECT * FROM bus WHERE id_bus='$id_bus[$i]' AND jumlah_kursi<'$kursi'");
+        if (mysqli_num_rows($checkKursi) > 0) {
+          $_SESSION['message-warning'] = "Maaf, kursi sudah penuh. Silakan memilih bus yang lainnya";
+          $_SESSION['time-message'] = time();
+          return false;
+        }
+
+        $seat = $kursi + 1;
+        $tgl_jalan = date_create($row_jadwal['tgl_jalan']);
+        $tgl_jalan = date_format($tgl_jalan, "d M Y") . " - " . $row_jadwal['waktu_jalan'];
+        qrcode($id_pesan);
+
+        mysqli_query($conn, "INSERT INTO pemesanan(id_pesan, id_user, id_jadwal, kursi) VALUES('$id_pesan','$idUser','$id_jadwal[$i]','$seat')");
+        $id_pesan++;
+      }
+      mysqli_query($conn, "DELETE FROM keranjang WHERE id_user='$idUser'");
+      return mysqli_affected_rows($conn);
+    }
     function imageBayar()
     {
       $namaFile = $_FILES["image"]["name"];
@@ -370,6 +408,13 @@ if (isset($_SESSION['data-user'])) {
       $id_pesan = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['id-pesan']))));
       unlink("../assets/images/qrcode/" . $id_pesan . ".jpg");
       mysqli_query($conn, "DELETE FROM pemesanan WHERE id_pesan='$id_pesan'");
+      return mysqli_affected_rows($conn);
+    }
+    function list_jadwal($data)
+    {
+      global $conn, $idUser;
+      $id_jadwal = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['id-jadwal']))));
+      mysqli_query($conn, "INSERT INTO keranjang(id_user,id_jadwal) VALUES('$idUser','$id_jadwal')");
       return mysqli_affected_rows($conn);
     }
   }
