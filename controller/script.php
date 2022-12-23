@@ -274,6 +274,7 @@ if (isset($_SESSION['data-user'])) {
 
     if (isset($_SESSION['pesan-perjalanan'])) {
       $id_jadwal = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $_SESSION['pesan-perjalanan']))));
+      $person = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $_SESSION['person']))));
       $checkout = mysqli_query($conn, "SELECT * FROM jadwal JOIN rute ON jadwal.id_rute=rute.id_rute JOIN bus ON jadwal.id_bus=bus.id_bus WHERE jadwal.id_jadwal='$id_jadwal'");
       if (isset($_POST['checkout'])) {
         if (checkout($_POST) > 0) {
@@ -281,6 +282,7 @@ if (isset($_SESSION['data-user'])) {
           $_SESSION['time-message'] = time();
           unset($_SESSION['pesan-perjalanan']);
           unset($_SESSION['data-perjalanan']);
+          unset($_SESSION['person']);
           header("Location: pemesanan");
           exit();
         }
@@ -288,6 +290,7 @@ if (isset($_SESSION['data-user'])) {
       if (isset($_POST['checkout-batal'])) {
         unset($_SESSION['pesan-perjalanan']);
         unset($_SESSION['data-perjalanan']);
+        unset($_SESSION['person']);
         header("Location: pemesanan");
         exit();
       }
@@ -334,10 +337,16 @@ if (isset($_SESSION['data-user'])) {
       $tgl = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $_SESSION['data-perjalanan']['tgl']))));
       $jadwalCard = mysqli_query($conn, "SELECT * FROM jadwal JOIN rute ON jadwal.id_rute=rute.id_rute JOIN bus ON jadwal.id_bus=bus.id_bus WHERE rute.rute_dari='$dari' AND rute.rute_ke='$ke' AND date(jadwal.tgl_jalan)='$tgl'");
       if (isset($_POST['pesan-jadwal'])) {
-        $id_jadwal = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $_POST['id-jadwal']))));
-        $_SESSION['pesan-perjalanan'] = $id_jadwal;
-        header("Location: pemesanan");
-        exit();
+        if (list_jadwal($_POST) > 0) {
+          header("Location: pemesanan");
+          exit();
+        }
+        // $id_jadwal = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $_POST['id-jadwal']))));
+        // $person = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $_POST['person']))));
+        // $_SESSION['pesan-perjalanan'] = $id_jadwal;
+        // $_SESSION['person'] = $person;
+        // header("Location: pemesanan");
+        // exit();
       }
     }
 

@@ -274,41 +274,44 @@ $_SESSION['page-url'] = "pemesanan";
                   if (mysqli_num_rows($checkout) > 0) {
                     while ($row_co = mysqli_fetch_assoc($checkout)) { ?>
                       <div class="card rounded-0 shadow border-0 mb-3" style="max-width: 100%;">
-                        <div class="row g-0">
-                          <div class="col-md-4">
-                            <img src="../assets/images/bus/<?= $row_co['img_bus'] ?>" class="img-fluid rounded-0" alt="<?= $row_co['nama_bus'] ?>">
-                          </div>
-                          <div class="col-md-8">
-                            <div class="card-body">
-                              <div class="row">
-                                <div class="col-lg-9">
-                                  <h1 class="card-title">Bus <?= $row_co['nama_bus'] ?></h1>
-                                  <div class="row">
-                                    <div class="col-lg-5">
-                                      <p class="card-text">Waktu berkangkat <br>jam <?= $row_co['waktu_jalan'] ?></p>
-                                    </div>
-                                    <div class="col-lg-6">
-                                      <div class="d-flex justify-content-between">
-                                        <p class="card-text">Dari: <br><?= $row_co['rute_dari'] ?></p>
-                                        <i class="bi bi-arrow-right font-weight-bold" style="font-size: 25px;color: #009688;"></i>
-                                        <p class="card-text">Ke: <br><?= $row_co['rute_ke'] ?></p>
+                        <?php
+                        for ($i = 1; $i <= $person; $i++) { ?>
+                          <div class="row g-0">
+                            <div class="col-md-4">
+                              <img src="../assets/images/bus/<?= $row_co['img_bus'] ?>" class="img-fluid rounded-0" alt="<?= $row_co['nama_bus'] ?>">
+                            </div>
+                            <div class="col-md-8">
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-lg-9">
+                                    <h1 class="card-title">Bus <?= $row_co['nama_bus'] ?></h1>
+                                    <div class="row">
+                                      <div class="col-lg-5">
+                                        <p class="card-text">Waktu berkangkat <br>jam <?= $row_co['waktu_jalan'] ?></p>
+                                      </div>
+                                      <div class="col-lg-6">
+                                        <div class="d-flex justify-content-between">
+                                          <p class="card-text">Dari: <br><?= $row_co['rute_dari'] ?></p>
+                                          <i class="bi bi-arrow-right font-weight-bold" style="font-size: 25px;color: #009688;"></i>
+                                          <p class="card-text">Ke: <br><?= $row_co['rute_ke'] ?></p>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
-                                </div>
-                                <div class="col-lg-3 m-auto">
-                                  <form action="" method="POST" class="mt-3">
-                                    <h4 class="font-weight-bold" style="color: #009688;">Rp. <?= number_format($row_co['biaya']) ?><small>/Org</small></h4>
-                                    <input type="hidden" name="id-jadwal" value="<?= $row_co['id_jadwal'] ?>">
-                                    <input type="hidden" name="id-bus" value="<?= $row_co['id_bus'] ?>">
-                                    <button type="submit" name="checkout" class="btn shadow text-white btn-lg" style="background-color: #009688;width: 100%;">Pesan</button>
-                                    <button type="submit" name="checkout-batal" class="btn btn-danger shadow text-white btn-lg" style="width: 100%;">Batal</button>
-                                  </form>
+                                  <div class="col-lg-3 m-auto">
+                                    <form action="" method="POST" class="mt-3">
+                                      <h4 class="font-weight-bold" style="color: #009688;">Rp. <?= number_format($row_co['biaya']) ?><small>/Org</small></h4>
+                                      <input type="hidden" name="id-jadwal" value="<?= $row_co['id_jadwal'] ?>">
+                                      <input type="hidden" name="id-bus" value="<?= $row_co['id_bus'] ?>">
+                                      <button type="submit" name="checkout" class="btn shadow text-white btn-lg" style="background-color: #009688;width: 100%;">Pesan</button>
+                                      <button type="submit" name="checkout-batal" class="btn btn-danger shadow text-white btn-lg" style="width: 100%;">Batal</button>
+                                    </form>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        <?php } ?>
                       </div>
                   <?php }
                   }

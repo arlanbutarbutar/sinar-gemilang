@@ -117,8 +117,10 @@ $_SESSION['page-url'] = "perjalanan";
                               <div class="col-lg-4 m-auto">
                                 <h4 class="font-weight-bold" style="color: #009688;">Rp. <?= number_format($row_jadwal['biaya']) ?><small>/Org</small></h4>
                                 <form action="" method="post">
+                                  <label for="person">Jumlah Penumpang</label>
+                                  <input type="number" name="person" id="person" value="1" class="form-control p-2" placeholder="" style="width: 70px;" required>
                                   <input type="hidden" name="id-jadwal" value="<?= $row_jadwal['id_jadwal'] ?>">
-                                  <div class="d-flex flex-nowrap">
+                                  <div class="d-flex flex-nowrap mt-3">
                                     <button type="submit" name="list-jadwal" class="btn btn-primary btn-sm rounded-0" data-bs-dismiss="modal">Masukan List</button>
                                     <button type="submit" name="pesan-jadwal" class="btn btn-success btn-sm rounded-0">Pesan Sekarang</button>
                                   </div>

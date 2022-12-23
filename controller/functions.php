@@ -414,7 +414,10 @@ if (isset($_SESSION['data-user'])) {
     {
       global $conn, $idUser;
       $id_jadwal = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['id-jadwal']))));
-      mysqli_query($conn, "INSERT INTO keranjang(id_user,id_jadwal) VALUES('$idUser','$id_jadwal')");
+      $person = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['person']))));
+      for ($i = 1; $i <= $person; $i++) {
+        mysqli_query($conn, "INSERT INTO keranjang(id_user,id_jadwal) VALUES('$idUser','$id_jadwal')");
+      }
       return mysqli_affected_rows($conn);
     }
   }
